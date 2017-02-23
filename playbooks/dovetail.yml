@@ -1,0 +1,6 @@
+---
+- name: Run dovetail
+  hosts: undercloud
+  gather_facts: no
+  roles:
+    - ansible-role-tripleo-dovetail
