@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-role-tripleo-dovetail
+dovetail_url: "https://github.com/opnfv/dovetail.git"
+enable_debug: true
+sut_type: "apex"
+testsuite: "compliance_set"
+working_dir: "/home/stack/dovetail"
+
+# steps
+install_dovetail: true
+pre_dovetail: true
+run_dovetail: true
+post_dovetail: true

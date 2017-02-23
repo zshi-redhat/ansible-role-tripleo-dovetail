@@ -1,0 +1,26 @@
+---
+# tasks file for ansible-role-tripleo-dovetail
+
+- name: Install packages and dependencies
+  sudo: true
+  yum:
+    name: "{{ item.name }}"
+    state: "installed"
+  with_items:
+    - { name: "python-pip" }
+    - { name: "git" }
+    - { name: "docker" }
+
+- name: Git clone dovetail
+  git:
+    repo: "{{ dovetail_url }}"
+    dest: "{{ working_dir }}"
+    clone: yes
+    update: yes
+    force: yes
+
+- name: Install dovetail
+  sudo: true
+  pip:
+    name: "{{ working_dir }}"
+    extra_args: -e

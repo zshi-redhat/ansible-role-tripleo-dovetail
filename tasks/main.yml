@@ -1,0 +1,20 @@
+---
+- include: install-dovetail.yml
+  when: install_dovetail|bool
+  tags:
+    - install-dovetail
+
+- include: pre-dovetail.yml
+  when: pre_dovetail|bool
+  tags:
+    - pre-dovetail
+
+- include: run-dovetail.yml
+  when: run_dovetail|bool
+  tags:
+    - run-dovetail
+
+- include: post-dovetail.yml
+  when: post_dovetail|bool
+  tags:
+    - post-dovetail
