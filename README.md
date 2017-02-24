@@ -33,36 +33,35 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
----
-- hosts: localhost
-  tasks:
-   - name: Copy public key
-     command: cat ~/.ssh/id_rsa.pub
-     register: undercloud_ssh_key
+    ---
+    - hosts: localhost
+      tasks:
+       - name: Copy public key
+         command: cat ~/.ssh/id_rsa.pub
+         register: undercloud_ssh_key
 
-   - name: Append public key to authorized_key
-     lineinfile:
-       dest: ~/.ssh/authorized_keys
-       line: '{{ undercloud_ssh_key.stdout }}'
-       create: yes
+       - name: Append public key to authorized_key
+         lineinfile:
+           dest: ~/.ssh/authorized_keys
+           line: '{{ undercloud_ssh_key.stdout }}'
+           create: yes
 
-- name: Run dovetail
-  hosts: undercloud
-  gather_facts: no
-  roles:
-    - ansible-role-tripleo-dovetail
+    - name: Run dovetail
+      hosts: undercloud
+      gather_facts: no
+      roles:
+       - ansible-role-tripleo-dovetail
 
-Example Ansible config
+Example Ansible host config
 ----------------
 
-`
-[stack@undercloud ansible]$ cat undercloud 
-localhost   ansible_connection=local
-[undercloud]
-192.168.23.13 
-[undercloud:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-`
+    [stack@undercloud ansible]$ cat hosts
+
+    localhost   ansible_connection=local
+    [undercloud]
+    `your_undercloud_ip_address`
+    [undercloud:vars]
+    ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 License
 -------
