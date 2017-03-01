@@ -1,12 +1,16 @@
 ---
 # defaults file for ansible-role-tripleo-dovetail
+
 dovetail_url: "https://github.com/opnfv/dovetail.git"
 enable_debug: true
 sut_type: "apex"
+functest_tag: 'stable' # Overwrite tag for functest docker container (e.g. stable or latest)
+yardstick_tag: 'stable' # Overwrite tag for yardstick docker container (e.g. stable or latest)
 testsuite: "compliance_set"
 working_dir: "/home/stack/dovetail"
 
 # steps
+
 install_dovetail: true
 pre_dovetail: true
 run_dovetail: true

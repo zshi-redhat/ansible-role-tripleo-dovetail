@@ -7,5 +7,5 @@
 
 - name: Run dovetail
   sudo: true
-  shell: "/usr/bin/dovetail run -d {{ enable_debug }} -t {{ sut_type }} -i {{ undercloud_ip.stdout }} --testsuite {{ testsuite }} 2>&1"
+  shell: "/usr/bin/dovetail run -d {{ enable_debug }} -t {{ sut_type }} -i {{ undercloud_ip.stdout }} -f {{ functest_tag }} -y {{ yardstick_tag }} --testsuite {{ testsuite }} 2>&1"
   register: dovetail_result
