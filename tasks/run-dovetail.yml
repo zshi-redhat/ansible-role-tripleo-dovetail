@@ -5,7 +5,14 @@
   shell: "ip route get 1.1.1.1 | grep -oP 'src \\K\\S+'"
   register: undercloud_ip
 
+- name: Create run-dovetail.sh
+  template:
+    src: "{{ run_dovetail_script }}"
+    dest: "{{ working_dir }}/run-dovetail.sh"
+    mode: 0755
+
 - name: Run dovetail
   sudo: true
-  shell: "/usr/bin/dovetail run -d {{ enable_debug }} -t {{ sut_type }} -i {{ undercloud_ip.stdout }} -f {{ functest_tag }} -y {{ yardstick_tag }} --testsuite {{ testsuite }} 2>&1"
+  shell: "{{ working_dir }}/run-dovetail.sh 2>&1"
+  ignore_errors: true
   register: dovetail_result

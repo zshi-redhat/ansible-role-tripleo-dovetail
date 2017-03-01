@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -eux
+
+{% if enable_debug is not defined or enable_debug == "" %}
+option_enable_debug=""
+{% else %}
+option_enable_debug=" -d {{ enable_debug }}"
+{% endif %}
+
+{% if sut_type is not defined or sut_type == "" %}
+option_sut_type=""
+{% else %}
+option_sut_type=" -t {{ sut_type }}"
+{% endif %}
+
+{% if functest_tag is not defined or functest_tag == "" %}
+option_functest_tag=""
+{% else %}
+option_functest_tag=" -f {{ functest_tag }}"
+{% endif %}
+
+{% if yardstick_tag is not defined or yardstick_tag == "" %}
+option_yardstick_tag=""
+{% else %}
+option_yardstick_tag=" -y {{ yardstick_tag }}"
+{% endif %}
+
+{% if testsuite is not defined or testsuite == "" %}
+option_testsuite=""
+{% else %}
+option_testsuite=" --testsuite {{ testsuite }}"
+{% endif %}
+
+/usr/bin/dovetail run $option_enable_debug $option_sut_type -i {{ undercloud_ip.stdout }} $option_functest_tag $option_yardstick_tag $option_testsuite

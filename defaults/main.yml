@@ -7,7 +7,9 @@ sut_type: "apex"
 functest_tag: 'stable' # Overwrite tag for functest docker container (e.g. stable or latest)
 yardstick_tag: 'stable' # Overwrite tag for yardstick docker container (e.g. stable or latest)
 testsuite: "compliance_set"
+# testarea: "ipv6"
 working_dir: "/home/stack/dovetail"
+run_dovetail_script: "run-dovetail.sh.j2"
 
 # steps
 
