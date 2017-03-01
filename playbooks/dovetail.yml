@@ -12,7 +12,7 @@
        create: yes
 
 - name: Run dovetail
-  hosts: undercloud
+  hosts: localhost
   gather_facts: no
   roles:
     - ansible-role-tripleo-dovetail
