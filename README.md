@@ -47,7 +47,7 @@ Including an example of how to use your role (for instance, with variables passe
            create: yes
 
     - name: Run dovetail
-      hosts: undercloud
+      hosts: localhost
       gather_facts: no
       roles:
        - ansible-role-tripleo-dovetail
@@ -57,11 +57,7 @@ Example Ansible host config
 
     [stack@undercloud ansible]$ cat hosts
 
-    localhost   ansible_connection=local
-    [undercloud]
-    `your_undercloud_ip_address`
-    [undercloud:vars]
-    ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+    localhost   ansible_connection=local    ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 License
 -------
