@@ -4,8 +4,10 @@
 - name: Get undercloud IP address
   shell: "ip route get 1.1.1.1 | grep -oP 'src \\K\\S+'"
   register: undercloud_ip
+  when: sut_type == 'apex'
 
 - name: Create run-dovetail.sh
+  sudo: true
   template:
     src: "{{ run_dovetail_script }}"
     dest: "{{ working_dir }}/run-dovetail.sh"

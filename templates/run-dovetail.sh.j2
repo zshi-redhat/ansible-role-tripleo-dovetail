@@ -2,10 +2,10 @@
 
 set -eux
 
-{% if enable_debug is not defined or enable_debug == "" %}
+{% if enable_debug is not defined or enable_debug == "" or enable_debug == "false" %}
 option_enable_debug=""
 {% else %}
-option_enable_debug=" -d {{ enable_debug }}"
+option_enable_debug=" --debug"
 {% endif %}
 
 {% if sut_type is not defined or sut_type == "" %}
@@ -32,4 +32,4 @@ option_testsuite=""
 option_testsuite=" --testsuite {{ testsuite }}"
 {% endif %}
 
-/usr/bin/dovetail run $option_enable_debug $option_sut_type -i {{ undercloud_ip.stdout }} $option_functest_tag $option_yardstick_tag $option_testsuite
+sudo /usr/bin/dovetail run $option_enable_debug $option_sut_type $option_functest_tag $option_yardstick_tag $option_testsuite --openrc /home/stack/dovetail_env

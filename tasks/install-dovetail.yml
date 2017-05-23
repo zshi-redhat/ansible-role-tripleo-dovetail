@@ -8,10 +8,13 @@
     state: "installed"
   with_items:
     - { name: "python-pip" }
+    - { name: "python-devel" }
     - { name: "git" }
+    - { name: "gcc" }
     - { name: "docker" }
 
 - name: Git clone dovetail
+  sudo: true
   git:
     repo: "{{ dovetail_url }}"
     dest: "{{ working_dir }}"
