@@ -14,9 +14,9 @@ Role Variables
 
 * `dovetail_url`: https://github.com/opnfv/dovetail.git
 * `enable_debug`: true/false - whether to enable debug log
-* `sut_type`: type of sut(system under test), i.e. "apex"
-* `testsuite`: test suite name in dovetail, i.e. "compliance_set"
-* `working_dir`: where to clone dovetail code
+* `sut_type`: type of sut(system under test), i.e. 'apex', could be '' when testing third-party SUT.
+* `testsuite`: test suite name in dovetail, i.e. "compliance_set", available testsuites are : debug, compliance_set, proposed_tests.
+* `working_dir`: where to clone dovetail code and store dovetail test results
 * `install_dovetail`: true/false - whether to run install-dovetail.yml in main task
 * `pre_dovetail`: true/false - whether to run pre-dovetail.yml in main task
 * `run_dovetail`: true/false - whether to run run-dovetail.yml in main task
