@@ -2,7 +2,7 @@
 # tasks file for ansible-role-tripleo-dovetail
 
 - name: Start docker service
-  sudo: true
+  become: true
   systemd:
     name: docker
     state: started
