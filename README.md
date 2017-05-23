@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Run dovetail tests on undercloud.
+Run dovetail tests in undercloud.
 
 Requirements
 ------------
@@ -25,7 +25,13 @@ Role Variables
 Dependencies
 ------------
 
-This Ansible role is designed to run from tripleo undercloud, make sure you have a undercloud ready for testing.
+* This Ansible role is designed to run from tripleo undercloud against overcloud, make sure you have both undercloud & overcloud ready for testing.
+* External network is needed to run dovetail cases, to create an external network in overcloud as below if not yet:
+
+    ---
+    - neutron net-create management --router:external
+    - neutron subnet-create management x.x.x.x/y --name management_subnet
+
 
 
 Example Playbook
