@@ -10,7 +10,7 @@ testsuite: "compliance_set"
 # testarea: "ipv6"
 working_dir: "/home/stack/dovetail"
 run_dovetail_script: "run-dovetail.sh.j2"
-
+env_file: "env_config.sh"
 # steps
 
 install_dovetail: true
