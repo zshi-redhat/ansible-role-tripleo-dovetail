@@ -13,12 +13,12 @@
 
 - name: Config OS_TENANT_NAME
   lineinfile:
-    dest: {{ working_dir }}/pre_config/{{ env_file }}
+    dest: "{{ working_dir }}/pre_config/{{ env_file }}"
     regexp: "OS_TENANT_NAME="
     line: 'export OS_TENANT_NAME=admin'
 
 - name: Config DOVETAIL_HOME
   lineinfile:
-    dest: {{ working_dir }}/pre_config/{{ env_file }}
+    dest: "{{ working_dir }}/pre_config/{{ env_file }}"
     regexp: "DOVETAIL_HOME"
     line: 'export DOVETAIL_HOME={{ working_dir }}'
