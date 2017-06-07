@@ -32,4 +32,4 @@ option_testsuite=""
 option_testsuite=" --testsuite {{ testsuite }}"
 {% endif %}
 
-sudo /usr/bin/dovetail run $option_enable_debug $option_sut_type $option_functest_tag $option_yardstick_tag $option_testsuite --openrc /home/stack/dovetail_env
+source /home/stack/dovetail_env;sudo -E /usr/bin/dovetail run $option_enable_debug $option_sut_type $option_functest_tag $option_yardstick_tag $option_testsuite

@@ -7,7 +7,6 @@
     name: "{{ item.name }}"
     state: "installed"
   with_items:
-    - { name: "python-pip" }
     - { name: "python-devel" }
     - { name: "git" }
     - { name: "gcc" }
@@ -24,6 +23,6 @@
 
 - name: Install dovetail
   become: true
-  pip:
-    name: "{{ working_dir }}"
-    extra_args: -e
+  args:
+    chdir: "{{ working_dir }}"
+  command: python setup.py install
