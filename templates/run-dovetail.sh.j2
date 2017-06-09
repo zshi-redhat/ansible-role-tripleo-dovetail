@@ -32,4 +32,10 @@ option_testsuite=""
 option_testsuite=" --testsuite {{ testsuite }}"
 {% endif %}
 
-source {{ working_dir }}/pre_config/{{ env_file }}; sudo -E /usr/bin/dovetail run $option_enable_debug $option_sut_type $option_functest_tag $option_yardstick_tag $option_testsuite
+{% if testarea is not defined or testarea == "" %}
+option_testarea=""
+{% else %}
+option_testarea=" --testarea {{ testarea }}"
+{% endif %}
+
+source {{ working_dir }}/pre_config/{{ env_file }}; sudo -E /usr/bin/dovetail run $option_enable_debug $option_sut_type $option_functest_tag $option_yardstick_tag $option_testsuite $option_testarea
