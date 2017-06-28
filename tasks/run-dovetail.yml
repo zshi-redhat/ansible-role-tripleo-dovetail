@@ -21,27 +21,31 @@
   register: dovetail_result
   when: use_docker != true
 
-when: use_docker == true
-block:
+- when: use_docker == true
+  block:
 
     - name: Pull dovetail image
+      become: true
       docker_image:
         name: opnfv/dovetail:{{ dovetail_image_tag }}
 
     - name: exec dovetail test cases
+      become: true
       docker_container:
         name: dovetail
         image: opnfv/dovetail:{{ dovetail_image_tag }}
         state: started
         privileged: yes
         env:
-            - DOVETAIL_HOME: {{ working_dir }}
+            DOVETAIL_HOME: "{{ working_dir }}"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - {{ working_dir }}:{{ working_dir }}
+            - "{{ working_dir }}:{{ working_dir }}"
         command: dovetail run --testsuite {{ testsuite }} --testarea {{ testarea }}
+        detach: false
 
     - name: Get docker logs
+      become: true
       command: docker logs dovetail
       register: exec_out
       when: enable_debug == true
