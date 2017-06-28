@@ -12,9 +12,39 @@
     src: "{{ run_dovetail_script }}"
     dest: "{{ working_dir }}/run-dovetail.sh"
     mode: 0755
+  when: use_docker != true
 
 - name: Run dovetail
   become: true
   shell: "{{ working_dir }}/run-dovetail.sh 2>&1"
   ignore_errors: true
   register: dovetail_result
+  when: use_docker != true
+
+when: use_docker == true
+block:
+
+    - name: Pull dovetail image
+      docker_image:
+        name: opnfv/dovetail:{{ dovetail_image_tag }}
+
+    - name: exec dovetail test cases
+      docker_container:
+        name: dovetail
+        image: opnfv/dovetail:{{ dovetail_image_tag }}
+        state: started
+        privileged: yes
+        env:
+            - DOVETAIL_HOME: {{ working_dir }}
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - {{ working_dir }}:{{ working_dir }}
+        command: dovetail run --testsuite {{ testsuite }} --testarea {{ testarea }}
+
+    - name: Get docker logs
+      command: docker logs dovetail
+      register: exec_out
+      when: enable_debug == true
+
+    - debug: var=exec_out.stdout_lines
+      when: enable_debug == true

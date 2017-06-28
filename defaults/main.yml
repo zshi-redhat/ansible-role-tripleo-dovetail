@@ -1,6 +1,8 @@
 ---
 # defaults file for ansible-role-tripleo-dovetail
 
+use_docker: true
+dovetail_image_tag: "cvp.0.1.0"
 dovetail_url: "https://github.com/opnfv/dovetail.git"
 enable_debug: true
 sut_type: ''

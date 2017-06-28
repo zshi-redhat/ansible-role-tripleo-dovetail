@@ -1,28 +1,42 @@
 ---
 # tasks file for ansible-role-tripleo-dovetail
 
-- name: Install packages and dependencies
-  become: true
-  yum:
-    name: "{{ item.name }}"
-    state: "installed"
-  with_items:
-    - { name: "python-devel" }
-    - { name: "git" }
-    - { name: "gcc" }
-    - { name: "docker" }
+- when: use_docker != true
+  block:
 
-- name: Git clone dovetail
-  become: true
-  git:
-    repo: "{{ dovetail_url }}"
-    dest: "{{ working_dir }}"
-    clone: yes
-    update: yes
-    force: yes
+    - name: Install packages and dependencies
+      become: true
+      yum:
+        name: "{{ item.name }}"
+        state: "installed"
+      with_items:
+        - { name: "python-devel" }
+        - { name: "git" }
+        - { name: "gcc" }
+        - { name: "docker" }
 
-- name: Install dovetail
-  become: true
-  args:
-    chdir: "{{ working_dir }}"
-  command: python setup.py install
+    - name: Git clone dovetail
+      become: true
+      git:
+        repo: "{{ dovetail_url }}"
+        dest: "{{ working_dir }}"
+        clone: yes
+        update: yes
+        force: yes
+
+    - name: Install dovetail
+      become: true
+      args:
+        chdir: "{{ working_dir }}"
+      command: python setup.py install
+
+- when: use_docker == true
+  block:
+
+    - name:
+      become: true
+      yum:
+        name: "{{ item.name }}"
+        state: "installed"
+      with_items:
+        - { name: 'docker-python' }

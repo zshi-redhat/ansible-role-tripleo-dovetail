@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-role-tripleo-dovetail
+
+- name: stop & rm docker instance
+  docker_container:
+    name: dovetail
+    image: opnfv/dovetail:{{ dovetail_image_tag }}
+    state: absent
+    keep_volumes: yes
