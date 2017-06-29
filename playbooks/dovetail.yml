@@ -11,6 +11,14 @@
        line: '{{ undercloud_ssh_key.stdout }}'
        create: yes
 
+- name: Install epel repo
+  become: true
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - geerlingguy.repo-epel
+  tags: install-epel
+
 - name: Run dovetail
   hosts: localhost
   gather_facts: no
