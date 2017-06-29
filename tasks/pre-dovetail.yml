@@ -32,3 +32,18 @@
     dest: "{{ working_dir }}/pre_config/{{ env_file }}"
     regexp: "DOVETAIL_HOME"
     line: 'export DOVETAIL_HOME={{ working_dir }}'
+
+
+- when: "'{{ testarea }}' == 'ha' or '{{ testarea }}' == 'HA'"
+  block:
+    - name: Get Controller IP addresses
+      shell: source /home/stack/stackrc; nova list --fields name,networks | \
+                awk -F "=" '/control/ {print $2;}' | cut -d " " -f 1
+      register: controller_ips
+
+    - name: Create pod.yaml
+      become: true
+      template:
+        src: pod.yaml.j2
+        dest: "{{ working_dir }}/pre_config/pod.yaml"
+        mode: 0755
