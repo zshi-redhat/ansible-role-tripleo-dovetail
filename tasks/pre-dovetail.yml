@@ -33,6 +33,16 @@
     regexp: "DOVETAIL_HOME"
     line: 'export DOVETAIL_HOME={{ working_dir }}'
 
+- name: Download cirros image to dovetail/pre_config
+  become: true
+  command: >
+    curl -sfL -C- {{ cirros_image_url }}
+  args:
+    chdir: "{{ working_dir }}/pre_config/"
+  register: curl_result
+  until: curl_result.rc not in [18, 56]
+  retries: 5
+  delay: 5
 
 - when: "'{{ testarea }}' == 'ha' or '{{ testarea }}' == 'HA'"
   block:

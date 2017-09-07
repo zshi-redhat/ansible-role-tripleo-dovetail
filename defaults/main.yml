@@ -13,6 +13,8 @@ testarea: "ipv6"
 working_dir: "/home/stack/dovetail"
 run_dovetail_script: "run-dovetail.sh.j2"
 env_file: "env_config.sh"
+cirros_image_url: "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img"
+
 # steps
 
 install_dovetail: true
