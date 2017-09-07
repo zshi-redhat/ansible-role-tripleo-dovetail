@@ -2,13 +2,13 @@
 # defaults file for ansible-role-tripleo-dovetail
 
 use_docker: true
-dovetail_image_tag: "cvp.0.1.0"
+dovetail_image_tag: "cvp.0.5.0"
 dovetail_url: "https://github.com/opnfv/dovetail.git"
 enable_debug: true
 sut_type: ''
 functest_tag: '' # Overwrite tag for functest docker container (e.g. stable or latest)
 yardstick_tag: '' # Overwrite tag for yardstick docker container (e.g. stable or latest)
-testsuite: "compliance_set"
+testsuite: "proposed_tests"
 testarea: "ipv6"
 working_dir: "/home/stack/dovetail"
 run_dovetail_script: "run-dovetail.sh.j2"
