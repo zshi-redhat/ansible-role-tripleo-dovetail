@@ -36,7 +36,7 @@
 - name: Download cirros image to dovetail/pre_config
   become: true
   command: >
-    curl -sfL -C- {{ cirros_image_url }}
+    curl -O {{ cirros_image_url }}
   args:
     chdir: "{{ working_dir }}/pre_config/"
   register: curl_result
