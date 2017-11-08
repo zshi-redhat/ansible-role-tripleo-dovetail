@@ -69,7 +69,7 @@
   retries: 5
   delay: 5
 
-- when: "'{{ testarea }}' == 'ha' or '{{ testarea }}' == 'HA'"
+- when: testarea == 'ha' or testarea == 'HA'
   block:
     - name: Get Controller IP addresses
       shell: source /home/stack/stackrc; nova list --fields name,networks | \
