@@ -33,6 +33,31 @@
     regexp: "DOVETAIL_HOME"
     line: 'export DOVETAIL_HOME={{ working_dir }}'
 
+- name: Check if https is used
+  shell: grep OS_AUTH_URL=https overcloudrc
+  register: https_output
+
+- name: Config INSECURE mode when https + no-cert
+  become: true
+  lineinfile:
+    dest: "{{ working_dir }}/pre_config/{{ env_file }}"
+    regexp: "OS_INSECURE"
+    line: 'export OS_INSECURE=True'
+  when: https_output.stdout != "" and not ca_cert
+
+- name: Copy cacert file when https + cacert
+  become: true
+  command: cp -rn /home/stack/overcloud-cacert.pem {{ working_dir }}/pre_config/cacert.pem
+  when: https_output.stdout != "" and ca_cert|bool
+
+- name: Config OS_CACERT when https + cacert
+  become: true
+  lineinfile:
+    dest: "{{ working_dir }}/pre_config/{{ env_file }}"
+    regexp: "OS_CACERT"
+    line: 'export OS_CACERT={{ working_dir }}/pre_config/cacert.pem'
+  when: https_output.stdout != "" and ca_cert|bool
+
 - name: Download cirros image to dovetail/pre_config
   become: true
   command: >
